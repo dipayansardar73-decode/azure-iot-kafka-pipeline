@@ -1,0 +1,22 @@
+# Build artifacts
+build/
+bin/
+*.o
+*.so
+*.dylib
+__pycache__/
+*.pyc
+
+# Dependencies
+node_modules/
+dist/
+venv/
+.env
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Docker
+docker-compose.override.yml
