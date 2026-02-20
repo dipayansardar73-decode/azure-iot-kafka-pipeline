@@ -76,3 +76,41 @@ Built with C++, Python, Azure Kubernetes Service (AKS), and React. Designed to d
    ```bash
    git clone https://github.com/[your-username]/iot-telemetry-pipeline.git
    cd iot-telemetry-pipeline
+   
+2. **Start infrastructure services (Kafka, InfluxDB, PostgreSQL, Redis)**
+bash
+docker-compose up -d
+
+3. **Build and run the C++ device simulator**
+bash
+cd simulator
+chmod +x setup_dependencies.sh
+./setup_dependencies.sh
+mkdir build && cd build
+cmake ..
+make
+./device_simulator --devices 50000 --rate 1
+
+4. **Start the stream processor**
+bash
+cd ../processor
+python -m venv venv
+source venv/bin/activate   # or `venv\Scripts\activate` on Windows
+pip install -r requirements.txt
+python main.py
+
+5. **Start the backend API**
+bash
+cd ../backend
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+
+6. **Start the React dashboard**
+bash
+cd ../dashboard
+npm install
+npm start
+Open your browser at http://localhost:3000 and explore the live dashboard.
+
+For Azure deployment instructions, see deployment/README.md.
+
